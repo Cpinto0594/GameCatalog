@@ -14,7 +14,7 @@ import com.cpinto.gamecatalog.application.activity.gamesfilter.GameFiltersActivi
 import com.cpinto.gamecatalog.application.models.games.Constants
 import com.cpinto.gamecatalog.application.models.games.Games
 import kotlinx.android.synthetic.main.games_headerbar_layout.*
-import kotlinx.android.synthetic.main.main_gemes_activity.*
+import kotlinx.android.synthetic.main.main_games_activity.*
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.newTask
@@ -43,7 +43,7 @@ class MainGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener {
         viewModelFactory
     }
 
-    override fun setLayout(): Int = R.layout.main_gemes_activity
+    override fun setLayout(): Int = R.layout.main_games_activity
 
     /**
      * This method initializes the view component and events

@@ -174,6 +174,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_30dp"
                         android:lineHeight="@dimen/dimen_25dp"
+                        android:justificationMode="inter_word"
                         android:text="@{game.game.description}"
                         android:textColor="@color/darker_gray"
                         android:textSize="@dimen/font_size_16sp" />
