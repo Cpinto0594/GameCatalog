@@ -9,7 +9,13 @@ import com.cpinto.gamecatalog.application.activity.gamesfilter.holders.GameFilte
 import com.cpinto.gamecatalog.application.activity.gamesfilter.holders.GamesFilterHolderData
 import com.cpinto.gamecatalog.application.models.games.DataToPersist
 import com.cpinto.gamecatalog.application.models.games.FilterOptions
+import com.cpinto.gamecatalog.application.models.games.GameCategories
+import com.cpinto.gamecatalog.application.models.games.Games
+import com.cpinto.gamecatalog.db.couchlite.CouchDatabase
 import com.cpinto.gamecatalog.modules.viewmodelmodule.BaseViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
@@ -28,12 +34,14 @@ class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
 
     fun createView(context: Context) {
         val sections: MutableList<GamesFilterHolderData> = arrayListOf()
-        addPropsSections(context, sections)
-        addSeparatorSection(sections)
-        addRatingSection(sections)
-        addSeparatorSection(sections)
-        addCategoriesSection(sections)
-        gamesFilterAdapter.setData(sections)
+        ioScope.launch {
+            addPropsSections(context, sections)
+            addSeparatorSection(sections)
+            addRatingSection(sections)
+            addSeparatorSection(sections)
+            addCategoriesSection(sections)
+            gamesFilterAdapter.setData(sections)
+        }
     }
 
     private fun addPropsSections(context: Context, sections: MutableList<GamesFilterHolderData>) {
@@ -82,15 +90,23 @@ class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
         }
     }
 
+    private fun fetchLocalCategories(): MutableList<GameCategories> {
+        val database = CouchDatabase.getInstance()
+        val docId = "categories"
+        val doc = database.getDocument(docId) ?: return mutableListOf()
+        val resultArray = doc.getString("results")
+        val type = object : TypeToken<List<GameCategories>>() {}.type
+        return Gson().fromJson(resultArray, type)
+    }
+
     private fun addCategoriesSection(sections: MutableList<GamesFilterHolderData>) {
-        val categories = DataToPersist.arrCategories
+        val categories = fetchLocalCategories()
         categories.forEach { category ->
             sections.add(
                 GamesFilterHolderData(
                     type = GamesFilterAdapter.GAME_UNIVERSE,
                     title = category.name,
                     value = category.name
-
                 )
             )
         }

@@ -1,6 +1,7 @@
 package com.cpinto.gamecatalog.application.activity.filteredgames
 
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.cpinto.gamecatalog.R
 import com.cpinto.gamecatalog.application.activity.BaseActivity
 import com.cpinto.gamecatalog.application.activity.filteredgames.viewmodel.FilteredGamesViewModel
@@ -15,6 +16,12 @@ import org.jetbrains.anko.newTask
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.parceler.Parcels
 
+
+/**
+ * TODO
+ * Implement loading
+ * Implement Filtering
+ */
 class FilteredGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener {
 
     private val viewModel: FilteredGamesViewModel by viewModels {
@@ -26,13 +33,20 @@ class FilteredGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener
     override fun initUi() {
         initHeader()
         createAdapter()
+        dataObserver()
         initData()
+
+    }
+
+    private fun dataObserver() {
+        viewModel.dataObserver.observe(this, Observer {
+            labelFilteredGames.text =
+                getString(R.string.filtered_title, viewModel.arrGames.size.toString())
+        })
     }
 
     private fun initData() {
         viewModel.initFilteredData()
-        labelFilteredGames.text =
-            getString(R.string.filtered_title, viewModel.arrGames.size.toString())
     }
 
     private fun createAdapter() {
