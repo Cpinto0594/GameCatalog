@@ -22,6 +22,8 @@
     <string name="price_title">Price</string>
     <string name="filtered_title">Filtered (%s)</string>
     <string name="empty_games">Ops!!\n\nNo Games were found\nSwipe Down to refresh page</string>
+    <string name="share_title">Share</string>
+
 
 
 

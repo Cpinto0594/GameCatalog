@@ -2,6 +2,8 @@ package com.cpinto.gamecatalog.application.activity.games
 
 import android.app.Activity
 import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -118,7 +120,8 @@ class MainGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener {
     private fun initHeader() {
         statusBarColorWhite()
         txtHeaderBarTitle.text = getString(R.string.title_games)
-        headerBarFilter.setOnClickListener { openFilterScreen() }
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     private fun openFilterScreen() {
@@ -142,5 +145,15 @@ class MainGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener {
                 Constants.KEYS.GAME to Parcels.wrap(game)
             ).newTask()
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_games_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.filter_games_menu) openFilterScreen()
+        return super.onOptionsItemSelected(item)
     }
 }

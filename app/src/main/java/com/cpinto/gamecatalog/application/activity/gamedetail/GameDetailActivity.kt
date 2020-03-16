@@ -1,14 +1,10 @@
 package com.cpinto.gamecatalog.application.activity.gamedetail
 
-import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
-import android.graphics.Bitmap
-import android.net.Uri
+import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
-import com.bumptech.glide.Glide
 import com.cpinto.gamecatalog.R
 import com.cpinto.gamecatalog.application.activity.BaseActivity
 import com.cpinto.gamecatalog.application.activity.gamedetail.helper.GameHelper
@@ -22,7 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.parceler.Parcels
 import java.io.File
-import java.io.FileOutputStream
 
 
 /**
@@ -50,7 +45,7 @@ class GameDetailActivity : BaseActivity() {
 
     private fun initHeader() {
         setSupportActionBar(toolbar)
-        headerBarShare.setOnClickListener { shareGame() }
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     /**
@@ -123,6 +118,12 @@ class GameDetailActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) super.onBackPressed()
+        if(item.itemId == R.id.share_games_menu) shareGame()
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.games_detail_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }
