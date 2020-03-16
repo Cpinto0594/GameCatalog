@@ -6,6 +6,7 @@ import com.cpinto.gamecatalog.BuildConfig
 import com.cpinto.gamecatalog.R
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
 import javax.inject.Inject
 
 class RetrofitInterceptor : Interceptor {
@@ -34,7 +35,7 @@ class RetrofitInterceptor : Interceptor {
                     .build()
             )
         }.onFailure {
-            throw RuntimeException(context.getString(R.string.connectivity_failure))
+            throw IOException(context.getString(R.string.connectivity_failure))
         }.getOrThrow()
     }
 }
