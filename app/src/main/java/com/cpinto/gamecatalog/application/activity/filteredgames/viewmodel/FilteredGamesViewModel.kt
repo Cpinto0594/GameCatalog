@@ -14,6 +14,17 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ *
+ * FilteredGamesViewModel
+ *
+ * This class is the backend for FilteredGamesActivity
+ *
+ * @author Carlos Pinto
+ * @version 1
+ * @since 1.0
+ *
+ */
 class FilteredGamesViewModel @Inject constructor() : BaseViewModel() {
 
     lateinit var arrGames: MutableList<Games>
@@ -21,6 +32,12 @@ class FilteredGamesViewModel @Inject constructor() : BaseViewModel() {
     private lateinit var gameClickListener: GamesCardAdapter.GameClickListener
     val dataObserver: MutableLiveData<MutableList<Games>> = MutableLiveData()
 
+
+    /**
+     * this method creates the recycler view for Games
+     * @param gameClickListener GamesCardAdapter#GameClickListener
+     * @return FilteredGamesAdapter
+     */
     fun createFilteredAdapter(
         gameClickListener: GamesCardAdapter.GameClickListener
     ): FilteredGamesAdapter {
@@ -29,6 +46,9 @@ class FilteredGamesViewModel @Inject constructor() : BaseViewModel() {
         return filteredGamesAdapter
     }
 
+    /**
+     * this method fetches the data from local DB
+     */
     fun initFilteredData() {
         ioScope.launch {
             val games = fetchLocalGames()
@@ -40,6 +60,12 @@ class FilteredGamesViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
+
+    /**
+     * this method load games from the local DB
+     * ***** This method should be in DB repository class
+     * @return data array of Games
+     */
     private fun fetchLocalGames(): MutableList<Games> {
         val database = CouchDatabase.getInstance()
         val docId = "games"

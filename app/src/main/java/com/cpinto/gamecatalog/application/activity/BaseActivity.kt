@@ -4,31 +4,31 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import com.cpinto.gamecatalog.R
-import com.cpinto.gamecatalog.lifecycle.LifeCycleProvider
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 abstract class BaseActivity : DaggerAppCompatActivity() {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     val activityScopeCoroutine = CoroutineScope(Dispatchers.Main)
-    protected val lifecycleOwner = LifeCycleProvider()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(setLayout())
-        //lifecycleOwner.lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         initUi()
     }
 
+    /**
+     * Method that changes the status bar Color
+     * *** Have to search documentation to see another better way
+     */
     fun statusBarColorWhite() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -40,6 +40,10 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         }
     }
 
+    /**
+     * Method that changes the status bar Color
+     * *** Have to search documentation to see another better way
+     */
     fun statusBarColorGrayFilters() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

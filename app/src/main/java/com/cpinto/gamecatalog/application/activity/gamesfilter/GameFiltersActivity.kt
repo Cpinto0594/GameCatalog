@@ -9,6 +9,17 @@ import kotlinx.android.synthetic.main.game_filters_activity.*
 import kotlinx.android.synthetic.main.games_headerbar_filter_layout.*
 import org.jetbrains.anko.intentFor
 
+/**
+ *
+ * GamesFilterViewModel
+ *
+ * This class is the backend for Filtered Games
+ *
+ * @author Carlos Pinto
+ * @version 1
+ * @since 1.0
+ *
+ */
 class GameFiltersActivity : BaseActivity() {
 
     private val viewModel: GamesFilterViewModel by viewModels { viewModelFactory }

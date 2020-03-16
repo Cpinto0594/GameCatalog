@@ -18,9 +18,17 @@ import org.parceler.Parcels
 
 
 /**
- * TODO
- * Implement loading
- * Implement Filtering
+ *
+ * FilteredGamesActivity
+ *
+ * This class is the view for Filtered Games
+ * TODO:
+ * Apply filters and Loading
+ *
+ * @author Carlos Pinto
+ * @version 1
+ * @since 1.0
+ *
  */
 class FilteredGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener {
 
@@ -38,6 +46,9 @@ class FilteredGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener
 
     }
 
+    /**
+     * this method handles the data change event and updates the view
+     */
     private fun dataObserver() {
         viewModel.dataObserver.observe(this, Observer {
             labelFilteredGames.text =
@@ -45,20 +56,37 @@ class FilteredGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener
         })
     }
 
+    /**
+     * this method loads the data to be presented
+     * @see FilteredGamesViewModel#initFilteredData
+     */
     private fun initData() {
         viewModel.initFilteredData()
     }
 
+
+    /**
+     * this method initializes the adapter for the recyclerview
+     * @see FilteredGamesViewModel#createFilteredAdapter
+     */
     private fun createAdapter() {
         recyclerGames.adapter = viewModel.createFilteredAdapter(this)
     }
 
+    /**
+     * this method initializes the header parameters
+     */
     private fun initHeader() {
         txtHeaderBarTitle.text = getString(R.string.title_games)
         setSupportActionBar(toolbar)
         txtHeaderBarClose.onClick { super.onBackPressed() }
     }
 
+    /**
+     * this method habdles the click on a game card and opens Games detail Activity
+     * @param game
+     * @see GameDetailActivity
+     */
     override fun onGameClick(game: Games) {
         startActivity(
             intentFor<GameDetailActivity>(

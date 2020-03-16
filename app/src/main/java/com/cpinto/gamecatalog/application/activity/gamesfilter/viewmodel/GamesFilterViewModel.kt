@@ -18,20 +18,46 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
+/**
+ *
+ * GamesFilterViewModel
+ *
+ * This class is the backend for Filtered Games
+ *
+ * @author Carlos Pinto
+ * @version 1
+ * @since 1.0
+ *
+ */
 class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
     GamesFilterAdapter.SectionClickListener {
 
 
     private lateinit var gamesFilterAdapter: GamesFilterAdapter
+    //this variable should contain the filter values
     private var gamesFilterOptions: FilterOptions = FilterOptions()
     private val sectionClickObserver: MutableLiveData<GamesFilterHolderData> = MutableLiveData()
 
 
+    /**
+     * this method creates the recycler view adapter for Filter Sections
+     * @param context
+     * @return GamesFilterAdapter
+     */
     fun createFilterAdapter(context: Context): GamesFilterAdapter {
         gamesFilterAdapter = GamesFilterAdapter(context, this)
         return gamesFilterAdapter
     }
 
+    /**
+     * this method creates the filter sections
+     * @param context
+     * @see addPropsSections
+     * @see addSeparatorSection
+     * @see addRatingSection
+     * @see addCategoriesSection
+     */
     fun createView(context: Context) {
         val sections: MutableList<GamesFilterHolderData> = arrayListOf()
         ioScope.launch {
@@ -44,6 +70,11 @@ class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
         }
     }
 
+    /**
+     * this method adds game properties sort section
+     * @param context
+     * @param sections
+     */
     private fun addPropsSections(context: Context, sections: MutableList<GamesFilterHolderData>) {
         sections.apply {
             add(
@@ -70,12 +101,20 @@ class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
         }
     }
 
+    /**
+     * this method adds separator view to filter sections
+     * @param sections
+     */
     private fun addSeparatorSection(sections: MutableList<GamesFilterHolderData>) {
         sections.apply {
             add(GamesFilterHolderData(type = GamesFilterAdapter.SEPARATOR))
         }
     }
 
+    /**
+     * this method adds Rating filter to filter sections
+     * @param sections
+     */
     private fun addRatingSection(sections: MutableList<GamesFilterHolderData>) {
         for (step in 5 downTo 1) {
             sections.apply {
@@ -90,6 +129,11 @@ class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
         }
     }
 
+    /**
+     * this method load categories from the local DB
+     * ***** This method should be in DB repository class
+     * @return data array of Categories
+     */
     private fun fetchLocalCategories(): MutableList<GameCategories> {
         val database = CouchDatabase.getInstance()
         val docId = "categories"
@@ -99,6 +143,10 @@ class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
         return Gson().fromJson(resultArray, type)
     }
 
+    /**
+     * this method adds Categories filter to filter sections
+     * @param sections
+     */
     private fun addCategoriesSection(sections: MutableList<GamesFilterHolderData>) {
         val categories = fetchLocalCategories()
         categories.forEach { category ->
@@ -112,7 +160,7 @@ class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
         }
     }
 
-    fun getSectionByPosition(position: Int): GamesFilterHolderData =
+    private fun getSectionByPosition(position: Int): GamesFilterHolderData =
         gamesFilterAdapter.data[position]
 
     fun sectionTextTitle(position: Int): String =
