@@ -21,6 +21,18 @@ import org.jetbrains.anko.newTask
 import org.jetbrains.anko.startActivityForResult
 import org.parceler.Parcels
 
+
+/**
+ *
+ * MainGamesActivity
+ *
+ * This class is the view for MainGamesView
+ *
+ * @author Carlos Pinto
+ * @version 1
+ * @since 1.0
+ *
+ */
 class MainGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener {
 
     companion object {
@@ -33,6 +45,15 @@ class MainGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener {
 
     override fun setLayout(): Int = R.layout.main_gemes_activity
 
+    /**
+     * This method initializes the view component and events
+     * @see initDataRequest
+     * @see initGamesAdapter
+     * @see initGamesObserver
+     * @see initHeader
+     * @see initSwipeLayout
+     * @see onLoadingObserver
+     */
     override fun initUi() {
         initHeader()
         initSwipeLayout()
@@ -42,36 +63,51 @@ class MainGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener {
         initDataRequest()
     }
 
+    /**
+     * this method handles the visibility of login view
+     */
     private fun onLoadingObserver() {
-        viewModel.isLoading.observe(this , Observer {
+        viewModel.isLoading.observe(this, Observer {
             progressBar.isVisible = it
         })
     }
 
+    /**
+     * this method handles the SwipeEvent and refreshes the data from remote endpoint
+     * @see fetchGamesFromRemote
+     */
     private fun initSwipeLayout() {
         swippeLayout.setOnRefreshListener { fetchGamesFromRemote() }
     }
 
+    /**
+     * this methid initializes fetches games from remote endpoint
+     * @see MainGamesViewModel#getGamesRemote
+     */
     private fun fetchGamesFromRemote() {
         viewModel.getGamesRemote()
         swippeLayout.isRefreshing = false
     }
 
+    /**
+     * this method initializes the adapter for Horizontal Cards
+     * @see MainGamesViewModel#createSectionCategoriesAdapter
+     * @see MainGamesViewModel#createRecyclerGamesAdapter
+     */
     private fun initGamesAdapter() {
         recyclerGamesCategories.adapter = viewModel.createSectionCategoriesAdapter(this)
         recyclerGames.adapter = viewModel.createRecyclerGamesAdapter(this, this)
     }
 
     private fun initGamesObserver() {
-        viewModel.gamesObserver.observe(this, Observer {
-            longToast("hay datos")
-        })
         viewModel.errorObserver.observe(this, Observer {
             longToast(it.toString())
         })
     }
 
-
+    /**
+     * This method initializes the games and categories request
+     */
     private fun initDataRequest() {
         viewModel.checkGames()
     }
