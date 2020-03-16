@@ -63,10 +63,10 @@ class MainGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener {
     }
 
     private fun initGamesObserver() {
-        viewModel.gamesObserver.observe(lifecycleOwner, Observer {
+        viewModel.gamesObserver.observe(this, Observer {
             longToast("hay datos")
         })
-        viewModel.errorObserver.observe(lifecycleOwner, Observer {
+        viewModel.errorObserver.observe(this, Observer {
             longToast(it.toString())
         })
     }

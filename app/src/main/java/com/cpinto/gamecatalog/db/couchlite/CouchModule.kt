@@ -5,7 +5,7 @@ import com.couchbase.lite.DatabaseConfiguration
 
 object CouchDatabase {
 
-    const val COUCH_DB = "gamesCatalog"
+    private const val COUCH_DB = "gamesCatalog"
     private var database: Database? = null
     private val config = DatabaseConfiguration()
 
