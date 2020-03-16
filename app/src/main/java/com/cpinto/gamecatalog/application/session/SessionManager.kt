@@ -4,8 +4,8 @@ import android.content.Context
 
 object SessionManager {
 
-    const val FIRST_TIME_APP = "FIRST_TIME_APP"
-    const val isFirstTimeApplication = "isFirstTimeApplication"
+    private const val FIRST_TIME_APP = "FIRST_TIME_APP"
+    private const val isFirstTimeApplication = "isFirstTimeApplication"
 
     fun setFistTimeApplication(value: Boolean, context: Context): Boolean {
         val editor = context.getSharedPreferences(FIRST_TIME_APP, Context.MODE_PRIVATE).edit()

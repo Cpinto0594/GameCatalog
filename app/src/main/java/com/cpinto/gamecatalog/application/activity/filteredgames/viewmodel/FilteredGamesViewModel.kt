@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.cpinto.gamecatalog.R
 import com.cpinto.gamecatalog.application.activity.filteredgames.adapters.FilteredGamesAdapter
 import com.cpinto.gamecatalog.application.activity.games.adapter.GamesCardAdapter
-import com.cpinto.gamecatalog.application.models.games.DataToPersist
 import com.cpinto.gamecatalog.application.models.games.Games
 import com.cpinto.gamecatalog.db.couchlite.CouchDatabase
 import com.cpinto.gamecatalog.modules.viewmodelmodule.BaseViewModel

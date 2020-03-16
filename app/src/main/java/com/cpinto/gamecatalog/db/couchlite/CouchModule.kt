@@ -7,7 +7,11 @@ object CouchDatabase {
 
     const val COUCH_DB = "gamesCatalog"
     private var database: Database? = null
-    val config = DatabaseConfiguration()
+    private val config = DatabaseConfiguration()
+
+    /**
+     * this method Returns the CouchDatabase Instance
+     */
     fun getInstance(): Database =
         if (database == null) {
             Database(COUCH_DB, config)

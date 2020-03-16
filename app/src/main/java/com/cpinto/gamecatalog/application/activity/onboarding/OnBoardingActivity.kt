@@ -8,6 +8,17 @@ import com.cpinto.gamecatalog.application.session.SessionManager
 import kotlinx.android.synthetic.main.onboarding_activity.*
 import org.jetbrains.anko.*
 
+/**
+ *
+ * OnBoardingActivity
+ *
+ * This class is for OnBoarding View
+ *
+ * @author Carlos Pinto
+ * @version 1
+ * @since 1.0
+ *
+ */
 class OnBoardingActivity : BaseActivity(), ViewPagerAdapter.OnPagerButtonListener {
     private lateinit var pagerAdapter: ViewPagerAdapter
 
@@ -17,6 +28,9 @@ class OnBoardingActivity : BaseActivity(), ViewPagerAdapter.OnPagerButtonListene
         initPager()
     }
 
+    /**
+     * this method initializes the scroll pager
+     */
     private fun initPager() {
         pagerAdapter = ViewPagerAdapter(this, this)
         onBoardingViewPager.adapter = pagerAdapter

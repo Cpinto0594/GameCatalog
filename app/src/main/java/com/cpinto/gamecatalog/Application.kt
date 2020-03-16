@@ -12,6 +12,18 @@ import dagger.android.HasActivityInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
+
+/**
+ *
+ * Application
+ *
+ * This class initializes Dagger DI
+ *
+ * @author Carlos Pinto
+ * @version 1
+ * @since 1.0
+ *
+ */
 class Application : Application(), HasActivityInjector, HasSupportFragmentInjector {
 
     @Inject
@@ -34,6 +46,9 @@ class Application : Application(), HasActivityInjector, HasSupportFragmentInject
         this.initCouchLiteDB()
     }
 
+    /**
+     * This method creates Dagger Component
+     */
     private fun configureInjectComponent() {
         daggerAppComponent = DaggerAppComponent.builder()
             .application(this)
@@ -42,6 +57,9 @@ class Application : Application(), HasActivityInjector, HasSupportFragmentInject
         daggerAppComponent.inject(this)
     }
 
+    /**
+     * this method initializes the BD
+     */
     private fun initCouchLiteDB() {
         CouchbaseLite.init(this)
 

@@ -11,9 +11,9 @@ import org.jetbrains.anko.intentFor
 
 /**
  *
- * GamesFilterViewModel
+ * GameFiltersActivity
  *
- * This class is the backend for Filtered Games
+ * This class is the view for Filtered Games
  *
  * @author Carlos Pinto
  * @version 1
@@ -26,6 +26,13 @@ class GameFiltersActivity : BaseActivity() {
 
     override fun setLayout(): Int = R.layout.game_filters_activity
 
+    /**
+     * This method initializes view components and events
+     * @see initHeader
+     * @see createGameFilterAdapter
+     * @see drawSections
+     * @see applyFilterButton
+     */
     override fun initUi() {
         initHeader()
         createGameFilterAdapter()
@@ -33,27 +40,48 @@ class GameFiltersActivity : BaseActivity() {
         applyFilterButton()
     }
 
+    /**
+     * this method handles the event of apply filters button
+     * @see applyFilters
+     */
     private fun applyFilterButton() {
         buttonApplyFilters.setOnClickListener { applyFilters() }
     }
 
+
+    /**
+     * this method opens Filter result activity
+     * @see FilteredGamesActivity
+     */
     private fun applyFilters() {
         startActivity(intentFor<FilteredGamesActivity>())
         finish()
     }
 
+    /**
+     * this method draws filter sections
+     * @see GamesFilterViewModel#createView
+     */
     private fun drawSections() {
         viewModel.createView(this)
     }
 
+    /**
+     * this method creates the adapter for the recyclerView
+     * @see GamesFilterViewModel#createFilterAdapter
+     */
     private fun createGameFilterAdapter() {
         recyclerViewFilterSections.adapter = viewModel.createFilterAdapter(this)
     }
-
+    /**
+     * this method initializes the header components
+     * @see setSupportActionBar
+     * @see statusBarColorGrayFilters
+     */
     private fun initHeader() {
         setSupportActionBar(toolbar)
         txtHeaderBarTitle.text = getString(R.string.filters_title)
         txtHeaderBarClose.setOnClickListener { super.onBackPressed() }
-        super.statusBarColorGrayFilters()
+        statusBarColorGrayFilters()
     }
 }

@@ -1,6 +1,5 @@
 package com.cpinto.gamecatalog.application.activity.gamedetail
 
-import android.os.Parcel
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import com.cpinto.gamecatalog.R
@@ -13,6 +12,17 @@ import kotlinx.android.synthetic.main.games_headerbar_detail_layout.*
 import org.jetbrains.anko.longToast
 import org.parceler.Parcels
 
+/**
+ *
+ * GameDetailActivity
+ *
+ * This class is for the detail of one game
+ *
+ * @author Carlos Pinto
+ * @version 1
+ * @since 1.0
+ *
+ */
 class GameDetailActivity : BaseActivity() {
     private val game: Games by lazy {
         Parcels.unwrap<Games>(intent.getParcelableExtra(Constants.KEYS.GAME))
@@ -31,9 +41,12 @@ class GameDetailActivity : BaseActivity() {
     }
 
     private fun shareGame() {
-        longToast(game.description)
+        longToast("TODO")
     }
 
+    /**
+     * This method initializes the View Componen tBindings
+     */
     private fun initGameBinding() {
             game.let {
                 val view = DataBindingUtil.setContentView<GameDetailActivityBinding>(

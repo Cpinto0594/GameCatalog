@@ -4,13 +4,10 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.cpinto.gamecatalog.R
 import com.cpinto.gamecatalog.application.activity.gamesfilter.adapter.GamesFilterAdapter
-import com.cpinto.gamecatalog.application.activity.gamesfilter.holders.GameFilterCategoryHolder
 import com.cpinto.gamecatalog.application.activity.gamesfilter.holders.GameFilterPropsHolder
 import com.cpinto.gamecatalog.application.activity.gamesfilter.holders.GamesFilterHolderData
-import com.cpinto.gamecatalog.application.models.games.DataToPersist
 import com.cpinto.gamecatalog.application.models.games.FilterOptions
 import com.cpinto.gamecatalog.application.models.games.GameCategories
-import com.cpinto.gamecatalog.application.models.games.Games
 import com.cpinto.gamecatalog.db.couchlite.CouchDatabase
 import com.cpinto.gamecatalog.modules.viewmodelmodule.BaseViewModel
 import com.google.gson.Gson

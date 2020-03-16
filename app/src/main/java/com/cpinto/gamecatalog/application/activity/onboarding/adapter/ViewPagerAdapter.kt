@@ -11,6 +11,17 @@ import com.cpinto.gamecatalog.R
 import kotlinx.android.synthetic.main.onboard_template_layout.view.*
 import org.jetbrains.anko.backgroundDrawable
 
+/**
+ *
+ * ViewPagerAdapter
+ *
+ * This class is for OnBoarding Pager 
+ *
+ * @author Carlos Pinto
+ * @version 1
+ * @since 1.0
+ *
+ */
 class ViewPagerAdapter(private val context: Context, private val onPagerButtonListener: OnPagerButtonListener) :
     PagerAdapter() {
 
