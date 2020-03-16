@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="position"
+            type="Integer" />
+        <variable
+            name="viewModel"
+            type="com.cpinto.gamecatalog.application.activity.games.viewmodel.MainGamesViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:layout_marginRight="@dimen/dimen_20dp"
+            android:layout_marginEnd="@dimen/dimen_20dp"
+            android:layout_marginLeft="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_20dp"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            >
+
+            <com.cpinto.gamecatalog.application.fonts.SanFranciscoBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.getSectionName(position, context)}"
+                android:maxLines="1"
+                android:textSize="@dimen/font_size_18sp"
+                android:textColor="@color/darker_gray"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:layout_marginRight="@dimen/dimen_20dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1dp"
+                android:background="@color/gray"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dimen_15dp"
+            android:paddingStart="@dimen/dimen_15dp"
+            android:paddingRight="@dimen/empty_dimen"
+            android:paddingEnd="@dimen/empty_dimen"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:adapter="@{viewModel.createSectionGamesAdapter(position)}"/>
+
+    </LinearLayout>
+</layout>

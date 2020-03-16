@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Sm4sh</string>
+    <!--    ERORR-->
+    <string name="connectivity_failure">We have connectivity problems.</string>
+    <string name="onboard_first_text">Access our\nextented Catalog</string>
+    <string name="onboard_second_text">Know the title\nis worth gaming</string>
+    <string name="onboard_third_text">Real-time\nupdates</string>
+    <string name="next">Next</string>
+    <string name="get_started">Get Started</string>
+    <string name="title_games">Games</string>
+    <string name="error_connectivity_message">It seems there are problems with internet connectivity, check your connection and try again</string>
+    <string name="new_games_title">New (%s)</string>
+    <string name="popular_games_title">Popular (%s)</string>
+    <string name="game_detail_sku">SKU: %s</string>
+    <string name="game_detail_downloads">%s downloads</string>
+    <string name="close">Close</string>
+    <string name="clear_filters">Clear filters</string>
+    <string name="apply">Apply</string>
+    <string name="filters_title">Filters</string>
+    <string name="downloads_title">Downloads</string>
+    <string name="date_added_title">Date added</string>
+    <string name="price_title">Price</string>
+    <string name="filtered_title">Filtered (%s)</string>
+
+
+
+</resources>

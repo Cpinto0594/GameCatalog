@@ -1,0 +1,110 @@
+ext.deps = [:]
+def versions = [:]
+def support = [:]
+def lifecycle = [:]
+def retrofit = [:]
+def kotlin = [:]
+def parcel = [:]
+def ui = [:]
+def dagger = [:]
+def glide = [:]
+def couchbase = [:]
+
+deps.APP_URL = '"https://parseapi.back4app.com/classes/"'
+deps.X_Parse_Application_Id = '"I9pG8SLhTzFA0ImFkXsEvQfXMYyn0MgDBNg10Aps"'
+deps.X_Parse_REST_API_Key = '"Yvd2eK2LODfwVmkjQVNzFXwd3N0X7oUuwiMI3VDZ"'
+
+
+versions.android_gradle_plugin = "3.5.3"
+
+//arch components
+versions.lifecycle = "2.0.0"
+//Support
+versions.annotation = "1.0.1"
+versions.support = "1.0.0"
+versions.support_alpha = "1.1.0-alpha07"
+versions.constraint_layout = "2.0.0-alpha3"
+versions.appcompat = "1.1.0-rc01"
+versions.activity_ktx = "1.0.0-alpha08"
+
+//retrofit
+versions.retrofit = "2.6.1"
+versions.okhttp_logging_interceptor = "3.11.0"
+//kotlin
+versions.kotlin = "1.3.50"
+versions.core_ktx = "1.0.2"
+versions.anko_version = "0.10.8"
+versions.coroutines = "1.3.0-M1"
+versions.coroutines_core = "1.1.1"
+//gson
+versions.gson = "2.8.5"
+//parcel
+versions.parceler = "1.1.12"
+//databinding
+versions.databindingcompiler = "3.0.0"
+//dagger
+versions.dagger = "2.16"
+//glide
+versions.glide = "4.10.0"
+//couchbase
+versions.couchbase = "2.6.0"
+
+ext.versions = versions
+
+//LIBRARIES
+support.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
+support.cardview = "androidx.cardview:cardview:$versions.support"
+support.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+support.annotations = "androidx.annotation:annotation:$versions.annotation"
+support.design = "com.google.android.material:material:$versions.support_alpha"
+support.app_compat = "androidx.appcompat:appcompat:$versions.appcompat"
+support.v4 = "androidx.legacy:legacy-support-v4:$versions.support"
+support.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
+support.activity_ktx = "androidx.activity:activity-ktx:$versions.activity_ktx"
+
+
+deps.support = support
+
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
+lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+lifecycle.java8 = "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+lifecycle.viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+deps.lifecycle = lifecycle
+
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.google.code.gson:gson:$versions.gson"
+retrofit.gson_converter = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+deps.retrofit = retrofit
+
+kotlin.anko = "org.jetbrains.anko:anko:$versions.anko_version"
+kotlin.anko_commons = "org.jetbrains.anko:anko-commons:$versions.anko_version"
+kotlin.coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+kotlin.coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines_core"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+deps.kotlin = kotlin
+
+parcel.parceler_api = "org.parceler:parceler-api:$versions.parceler"
+parcel.parceler = "org.parceler:parceler:$versions.parceler"
+deps.parcel = parcel
+
+ui.databinding = "com.android.databinding:compiler:$versions.databindingcompiler"
+deps.ui = ui
+
+glide.runtime = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+deps.glide = glide
+
+couchbase.db = "com.couchbase.lite:couchbase-lite-android:$versions.couchbase"
+deps.couchbase = couchbase
+
+dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
+dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
+deps.dagger = dagger
+
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+
+ext.deps = deps

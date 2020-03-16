@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="position"
+            type="Integer" />
+
+        <variable
+            name="viewModel"
+            type="com.cpinto.gamecatalog.application.activity.gamesfilter.viewmodel.GamesFilterViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{()-> viewModel.onSectionClickListener(position)}"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/sectionContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dimen_10dp"
+            android:paddingBottom="@dimen/dimen_10dp"
+            android:paddingRight="@dimen/dimen_20dp"
+            android:paddingEnd="@dimen/dimen_20dp"
+            android:paddingStart="@dimen/dimen_20dp"
+            android:paddingLeft="@dimen/dimen_20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.cpinto.gamecatalog.application.fonts.SanFrancisco
+                android:id="@+id/txtProp"
+                android:layout_width="@dimen/empty_dimen"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{viewModel.sectionTextTitle(position)}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_15sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonProp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtProp"
+                android:checked="@{viewModel.sectionPropsCheckedValue(position)}"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1dp"
+            android:background="@color/header_bar_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sectionContainer" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
