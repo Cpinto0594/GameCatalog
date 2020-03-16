@@ -65,6 +65,12 @@ class FilteredGamesViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
+    /**
+     * This method applies all filter options to our array of games
+     * and return the resulting
+     * @param games
+     * @return List of filtered Games
+     */
     private fun applyFilterToGames(games: MutableList<Games>): MutableList<Games> {
         var initialGames = games.toMutableList()
         //Games Sorting
