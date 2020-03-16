@@ -103,6 +103,9 @@ class MainGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener {
         viewModel.errorObserver.observe(this, Observer {
             longToast(it.toString())
         })
+        viewModel.emptyGamesObserver.observe(this, Observer {
+            emptyGamesView.isVisible = it
+        })
     }
 
     /**

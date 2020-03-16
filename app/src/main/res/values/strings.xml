@@ -21,6 +21,7 @@
     <string name="date_added_title">Date added</string>
     <string name="price_title">Price</string>
     <string name="filtered_title">Filtered (%s)</string>
+    <string name="empty_games">Ops!!\n\nNo Games were found\nSwipe Down to refresh page</string>
 
 
 

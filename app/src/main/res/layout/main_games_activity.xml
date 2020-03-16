@@ -46,13 +46,14 @@
             app:layout_constraintTop_toBottomOf="@+id/recyclerGamesCategories" />
 
         <LinearLayout
+            android:id="@+id/progressBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:id="@+id/progressBar"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +65,18 @@
 
 
         </LinearLayout>
+
+        <com.cpinto.gamecatalog.application.fonts.SanFrancisco
+            android:id="@+id/emptyGamesView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/empty_games"
+            android:textSize="@dimen/font_size_20sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

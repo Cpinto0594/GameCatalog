@@ -46,6 +46,7 @@ class MainGamesViewModel @Inject constructor(private val repository: GamesReposi
     private var selectedCategory: GameCategories = GameCategories()
     val gamesObserver: MutableLiveData<MutableList<Games>> = MutableLiveData()
     val errorObserver: MutableLiveData<String> = MutableLiveData()
+    val emptyGamesObserver: MutableLiveData<Boolean> = MutableLiveData()
     private lateinit var gameClickListener: GamesCardAdapter.GameClickListener
     private var gameSections: MutableList<GamesAdapterDefinition> = mutableListOf()
     private val gamesArray: MutableList<Games> = mutableListOf()
@@ -176,12 +177,17 @@ class MainGamesViewModel @Inject constructor(private val repository: GamesReposi
      * @see persistData
      */
     private fun processGames(data: GamesResult) {
-        selectedCategory = GameCategories()
-        cleanEmptyGamesData(data.results)
-        persistData(data) {
-            gamesObserver.value = gamesArray
-            applyCategoryFilter()
-            handleLoadingObserver(false)
+        emptyGamesObserver.value = data.results.isEmpty()
+        if (data.results.isNotEmpty()) {
+            selectedCategory = GameCategories()
+            cleanEmptyGamesData(data.results)
+            persistData(data) {
+                uiScope.launch {
+                    gamesObserver.value = gamesArray
+                    applyCategoryFilter()
+                    handleLoadingObserver(false)
+                }
+            }
         }
     }
 
@@ -263,8 +269,11 @@ class MainGamesViewModel @Inject constructor(private val repository: GamesReposi
      * @see persistInDb
      */
     private fun persistData(data: GamesResult, afterPersist: () -> Unit) {
-        ioScope.launch { persistInDb(data) }
-        afterPersist()
+        ioScope.launch {
+            persistInDb(data)
+            afterPersist()
+        }
+
     }
 
     /**
