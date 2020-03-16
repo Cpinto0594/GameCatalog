@@ -45,11 +45,17 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_size_24sp" />
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/headerBarFilter"
-                    android:layout_width="@dimen/dimen_20dp"
-                    android:layout_height="@dimen/dimen_20dp"
-                    app:srcCompat="@drawable/filter_img" />
+                    android:layout_width="50dp"
+                    android:layout_height="@dimen/dimen_50dp"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/filter_img">
+
+
+                </androidx.appcompat.widget.AppCompatImageButton>
+
             </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>

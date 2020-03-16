@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.cpinto.gamecatalog.R
 import com.cpinto.gamecatalog.application.activity.filteredgames.adapters.FilteredGamesAdapter
 import com.cpinto.gamecatalog.application.activity.games.adapter.GamesCardAdapter
+import com.cpinto.gamecatalog.application.activity.gamesfilter.holders.GameFilterPropsHolder
+import com.cpinto.gamecatalog.application.models.games.FilterOptions
 import com.cpinto.gamecatalog.application.models.games.Games
 import com.cpinto.gamecatalog.db.couchlite.CouchDatabase
 import com.cpinto.gamecatalog.modules.viewmodelmodule.BaseViewModel
@@ -30,6 +32,7 @@ class FilteredGamesViewModel @Inject constructor() : BaseViewModel() {
     private lateinit var filteredGamesAdapter: FilteredGamesAdapter
     private lateinit var gameClickListener: GamesCardAdapter.GameClickListener
     val dataObserver: MutableLiveData<MutableList<Games>> = MutableLiveData()
+    lateinit var filterOptions: FilterOptions
 
 
     /**
@@ -48,9 +51,11 @@ class FilteredGamesViewModel @Inject constructor() : BaseViewModel() {
     /**
      * this method fetches the data from local DB
      */
-    fun initFilteredData() {
+    fun initFilteredData(filters: FilterOptions) {
+        filterOptions = filters
         ioScope.launch {
-            val games = fetchLocalGames()
+            var games = fetchLocalGames()
+            games = applyFilterToGames(games)
             uiScope.launch {
                 arrGames = games
                 dataObserver.value = arrGames
@@ -58,6 +63,38 @@ class FilteredGamesViewModel @Inject constructor() : BaseViewModel() {
             }
         }
     }
+
+    private fun applyFilterToGames(games: MutableList<Games>): MutableList<Games> {
+        var initialGames = games.toMutableList()
+        //Games Sorting
+        initialGames.sortWith(
+            when (filterOptions.selectedSortingProperty.toString().toInt()) {
+                GameFilterPropsHolder.DOWNLOADS -> downloadsComparator
+                GameFilterPropsHolder.DATE_ADDED -> creationComparator
+                else -> priceComparator
+            }
+        )
+        //Filter by Stars if selected
+        if (filterOptions.selectedStarsFilter.isNotEmpty()) {
+            initialGames =
+                initialGames.filter {
+                    filterOptions.selectedStarsFilter.contains(it.rating)
+                } as MutableList<Games>
+        }
+        //Filter by Category if selected
+        filterOptions.selectedCategoryFilter?.let {
+            initialGames =
+                initialGames.filter {
+                    it.universe == filterOptions.selectedCategoryFilter.toString()
+                } as MutableList<Games>
+        }
+
+        return initialGames
+    }
+
+    private val downloadsComparator: Comparator<Games> = compareByDescending { it.downloads.toFloat() }
+    private val creationComparator: Comparator<Games> = compareByDescending { it.createdAt.time }
+    private val priceComparator: Comparator<Games> = compareByDescending { it.price.toFloat() }
 
 
     /**

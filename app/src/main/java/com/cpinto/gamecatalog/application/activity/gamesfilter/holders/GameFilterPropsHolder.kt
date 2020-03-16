@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cpinto.gamecatalog.BR
 import com.cpinto.gamecatalog.application.activity.gamesfilter.viewmodel.GamesFilterViewModel
 import kotlinx.android.synthetic.main.game_filter_prop_layout.view.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class GameFilterPropsHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
     companion object {
@@ -16,10 +17,9 @@ class GameFilterPropsHolder(val binding: ViewDataBinding) : RecyclerView.ViewHol
     fun bind(viewModel: GamesFilterViewModel, position: Int) {
         binding.setVariable(BR.position, position)
         binding.setVariable(BR.viewModel, viewModel)
-        binding.root.radioButtonProp.isChecked = viewModel.sectionPropsCheckedValue(position)
-        binding.root.radioButtonProp.setOnCheckedChangeListener { _, value ->
-            println("Selected: $value")
-            viewModel.onSectionClickListener(position)
+        binding.root.radioButtonProp.isChecked = viewModel.sectionPropsIsCheckedState(position)
+        binding.root.radioButtonProp.setOnClickListener {
+            viewModel.selectPropsSorter(position)
         }
         binding.executePendingBindings()
     }

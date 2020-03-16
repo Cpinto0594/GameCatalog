@@ -17,10 +17,9 @@ class GameFilterCategoryHolder(val binding: ViewDataBinding) :
     fun bind(viewModel: GamesFilterViewModel, position: Int) {
         binding.setVariable(BR.position, position)
         binding.setVariable(BR.viewModel, viewModel)
-        binding.root.radioButtonProp.isChecked = viewModel.sectionPropsCheckedValue(position)
-        binding.root.radioButtonProp.setOnCheckedChangeListener { _, value ->
-            println("Selected: $value")
-            viewModel.onSectionClickListener(position)
+        binding.root.radioButtonProp.isChecked = viewModel.sectionCategoryIsCheckedState(position)
+        binding.root.radioButtonProp.setOnClickListener {
+            viewModel.selectCategoryFilter(position)
         }
         binding.executePendingBindings()
     }

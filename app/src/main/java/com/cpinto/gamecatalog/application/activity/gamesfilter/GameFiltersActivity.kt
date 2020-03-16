@@ -1,13 +1,16 @@
 package com.cpinto.gamecatalog.application.activity.gamesfilter
 
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.cpinto.gamecatalog.R
 import com.cpinto.gamecatalog.application.activity.BaseActivity
 import com.cpinto.gamecatalog.application.activity.filteredgames.FilteredGamesActivity
 import com.cpinto.gamecatalog.application.activity.gamesfilter.viewmodel.GamesFilterViewModel
+import com.cpinto.gamecatalog.application.models.games.Constants
 import kotlinx.android.synthetic.main.game_filters_activity.*
 import kotlinx.android.synthetic.main.games_headerbar_filter_layout.*
 import org.jetbrains.anko.intentFor
+import org.parceler.Parcels
 
 /**
  *
@@ -37,7 +40,16 @@ class GameFiltersActivity : BaseActivity() {
         initHeader()
         createGameFilterAdapter()
         drawSections()
+        onDatasetChanged()
         applyFilterButton()
+    }
+
+    private fun onDatasetChanged() {
+        viewModel.dataSetChangedObserver.observe(this, Observer {
+            recyclerViewFilterSections.post {
+                viewModel.gamesFilterAdapter.notifyDataSetChanged()
+            }
+        })
     }
 
     /**
@@ -54,7 +66,11 @@ class GameFiltersActivity : BaseActivity() {
      * @see FilteredGamesActivity
      */
     private fun applyFilters() {
-        startActivity(intentFor<FilteredGamesActivity>())
+        startActivity(
+            intentFor<FilteredGamesActivity>(
+                Constants.KEYS.FILTERS to Parcels.wrap(viewModel.gamesFilterOptions)
+            )
+        )
         finish()
     }
 
@@ -73,6 +89,7 @@ class GameFiltersActivity : BaseActivity() {
     private fun createGameFilterAdapter() {
         recyclerViewFilterSections.adapter = viewModel.createFilterAdapter(this)
     }
+
     /**
      * this method initializes the header components
      * @see setSupportActionBar

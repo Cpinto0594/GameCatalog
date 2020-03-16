@@ -8,6 +8,7 @@ import com.cpinto.gamecatalog.application.activity.filteredgames.viewmodel.Filte
 import com.cpinto.gamecatalog.application.activity.gamedetail.GameDetailActivity
 import com.cpinto.gamecatalog.application.activity.games.adapter.GamesCardAdapter
 import com.cpinto.gamecatalog.application.models.games.Constants
+import com.cpinto.gamecatalog.application.models.games.FilterOptions
 import com.cpinto.gamecatalog.application.models.games.Games
 import kotlinx.android.synthetic.main.filtered_games_actitivy.*
 import kotlinx.android.synthetic.main.games_headerbar_filtered_layout.*
@@ -36,6 +37,14 @@ class FilteredGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener
         viewModelFactory
     }
 
+    private val filteredOptions: FilterOptions by lazy {
+        Parcels.unwrap<FilterOptions>(
+            intent.getParcelableExtra(
+                Constants.KEYS.FILTERS
+            )
+        )
+    }
+
     override fun setLayout(): Int = R.layout.filtered_games_actitivy
 
     override fun initUi() {
@@ -61,7 +70,7 @@ class FilteredGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener
      * @see FilteredGamesViewModel#initFilteredData
      */
     private fun initData() {
-        viewModel.initFilteredData()
+        viewModel.initFilteredData(filteredOptions)
     }
 
 

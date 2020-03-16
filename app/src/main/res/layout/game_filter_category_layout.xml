@@ -50,7 +50,6 @@
                 android:gravity="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txtProp"
-                android:checked="@{viewModel.sectionPropsCheckedValue(position)}"
                 />
         </LinearLayout>
 

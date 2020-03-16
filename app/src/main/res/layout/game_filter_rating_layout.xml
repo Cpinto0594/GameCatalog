@@ -45,8 +45,8 @@
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:numStars="@{viewModel.sectionRatinGetStep(position)}"
-                    android:rating="@{viewModel.sectionRatinGetStep(position)}"
+                    android:numStars="@{viewModel.sectionRatingGetStep(position)}"
+                    android:rating="@{viewModel.sectionRatingGetStep(position)}"
                     android:stepSize="1"
                     app:theme="@style/RatingBarGameFilter" />
             </LinearLayout>

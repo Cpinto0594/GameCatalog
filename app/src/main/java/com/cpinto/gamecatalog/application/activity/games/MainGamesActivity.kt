@@ -119,7 +119,7 @@ class MainGamesActivity : BaseActivity(), GamesCardAdapter.GameClickListener {
     }
 
     private fun openFilterScreen() {
-        startActivityForResult<GameFiltersActivity>(RESULT_FILTER)
+        startActivity(intentFor<GameFiltersActivity>())
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

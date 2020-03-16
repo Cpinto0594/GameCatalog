@@ -30,10 +30,10 @@ import javax.inject.Inject
 class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
     GamesFilterAdapter.SectionClickListener {
 
-
-    private lateinit var gamesFilterAdapter: GamesFilterAdapter
+    lateinit var gamesFilterAdapter: GamesFilterAdapter
+    val dataSetChangedObserver: MutableLiveData<Boolean> = MutableLiveData()
     //this variable should contain the filter values
-    private var gamesFilterOptions: FilterOptions = FilterOptions()
+    var gamesFilterOptions: FilterOptions = FilterOptions()
     private val sectionClickObserver: MutableLiveData<GamesFilterHolderData> = MutableLiveData()
 
 
@@ -42,7 +42,9 @@ class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
      * @param context
      * @return GamesFilterAdapter
      */
-    fun createFilterAdapter(context: Context): GamesFilterAdapter {
+    fun createFilterAdapter(
+        context: Context
+    ): GamesFilterAdapter {
         gamesFilterAdapter = GamesFilterAdapter(context, this)
         return gamesFilterAdapter
     }
@@ -63,7 +65,7 @@ class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
             addRatingSection(sections)
             addSeparatorSection(sections)
             addCategoriesSection(sections)
-            gamesFilterAdapter.setData(sections)
+            uiScope.launch { gamesFilterAdapter.setData(sections) }
         }
     }
 
@@ -92,7 +94,7 @@ class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
                 GamesFilterHolderData(
                     type = GamesFilterAdapter.GAME_PROP,
                     title = context.getString(R.string.price_title),
-                    value = GameFilterPropsHolder.DOWNLOADS
+                    value = GameFilterPropsHolder.PRICE
                 )
             )
         }
@@ -119,7 +121,7 @@ class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
                     GamesFilterHolderData(
                         type = GamesFilterAdapter.GAME_RATING,
                         title = "$step",
-                        value = "$step"
+                        value = step
                     )
                 )
             }
@@ -167,9 +169,49 @@ class GamesFilterViewModel @Inject constructor() : BaseViewModel(),
         sectionClickObserver.value = getSectionByPosition(position)
     }
 
-    fun sectionPropsCheckedValue(position: Int): Boolean = false
+    fun sectionPropsIsCheckedState(position: Int): Boolean {
+        val selectedProp = getSectionByPosition(position)
+        return gamesFilterOptions.selectedSortingProperty == selectedProp.value.toString()
+    }
 
-    fun sectionRatinGetStep(position: Int): Int =
+    fun sectionCategoryIsCheckedState(position: Int): Boolean {
+        val selectedProp = getSectionByPosition(position)
+        return gamesFilterOptions.selectedCategoryFilter == selectedProp.value.toString()
+    }
+
+    fun sectionStarsIsCheckedState(position: Int): Boolean {
+        val selectedProp = getSectionByPosition(position)
+        return gamesFilterOptions.selectedStarsFilter.contains(selectedProp.value.toString())
+    }
+
+    fun sectionRatingGetStep(position: Int): Int =
         getSectionByPosition(position).value.toString().toInt()
+
+    fun selectPropsSorter(position: Int) {
+        gamesFilterOptions.selectedSortingProperty = getSectionByPosition(position).value.toString()
+        notityDataSetChange()
+    }
+
+    fun selectCategoryFilter(position: Int) {
+        gamesFilterOptions.selectedCategoryFilter = getSectionByPosition(position).value .toString()
+        notityDataSetChange()
+    }
+
+    fun selectRatingValue(position: Int) {
+        val selectedStars = gamesFilterOptions.selectedStarsFilter.toMutableList()
+        val selectedSection = getSectionByPosition(position)
+        if (!selectedStars.contains(selectedSection.value.toString())) {
+            selectedStars.add(selectedSection.value.toString())
+        } else {
+            selectedStars.remove(selectedSection.value .toString())
+        }
+        gamesFilterOptions.selectedStarsFilter.clear()
+        gamesFilterOptions.selectedStarsFilter.addAll(selectedStars)
+        notityDataSetChange()
+    }
+
+    private fun notityDataSetChange() {
+        dataSetChangedObserver.value = true
+    }
 
 }

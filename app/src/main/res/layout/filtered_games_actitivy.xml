@@ -61,7 +61,6 @@
             android:id="@+id/recyclerGames"
             android:layout_width="match_parent"
             android:layout_height="@dimen/empty_dimen"
-            android:layout_marginTop="@dimen/dimen_20dp"
             app:spanCount="2"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
