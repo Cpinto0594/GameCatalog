@@ -51,10 +51,7 @@
                     android:layout_height="@dimen/dimen_50dp"
                     android:layout_gravity="center"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/filter_img">
-
-
-                </androidx.appcompat.widget.AppCompatImageButton>
+                    android:src="@drawable/filter_img" />
 
             </LinearLayout>
 

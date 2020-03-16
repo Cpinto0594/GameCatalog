@@ -13,6 +13,7 @@ import com.cpinto.gamecatalog.modules.viewmodelmodule.BaseViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 /**
@@ -67,13 +68,15 @@ class FilteredGamesViewModel @Inject constructor() : BaseViewModel() {
     private fun applyFilterToGames(games: MutableList<Games>): MutableList<Games> {
         var initialGames = games.toMutableList()
         //Games Sorting
-        initialGames.sortWith(
-            when (filterOptions.selectedSortingProperty.toString().toInt()) {
-                GameFilterPropsHolder.DOWNLOADS -> downloadsComparator
-                GameFilterPropsHolder.DATE_ADDED -> creationComparator
-                else -> priceComparator
-            }
-        )
+        filterOptions.selectedSortingProperty?.let {
+            initialGames.sortWith(
+                when (filterOptions.selectedSortingProperty.toString().toInt()) {
+                    GameFilterPropsHolder.DOWNLOADS -> downloadsComparator
+                    GameFilterPropsHolder.DATE_ADDED -> creationComparator
+                    else -> priceComparator
+                }
+            )
+        }
         //Filter by Stars if selected
         if (filterOptions.selectedStarsFilter.isNotEmpty()) {
             initialGames =
@@ -92,9 +95,19 @@ class FilteredGamesViewModel @Inject constructor() : BaseViewModel() {
         return initialGames
     }
 
-    private val downloadsComparator: Comparator<Games> = compareByDescending { it.downloads.toFloat() }
+    //Sort By Downloads
+    private val downloadsComparator: Comparator<Games> =
+        compareByDescending { it.downloads.toFloat() }
+    //Sort by Creation Date
     private val creationComparator: Comparator<Games> = compareByDescending { it.createdAt.time }
-    private val priceComparator: Comparator<Games> = compareByDescending { it.price.toFloat() }
+    //Sort by Price
+    private val priceComparator: Comparator<Games> =
+        compareByDescending {
+            it.price.replace(
+                ",",
+                DecimalFormat().decimalFormatSymbols.decimalSeparator.toString()
+            ).toFloat()
+        }
 
 
     /**
